@@ -1,0 +1,337 @@
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #5c7083, #e2e8f0);
+  background-size: 400% 400%;
+  animation: gradientShift 15s ease infinite;
+  color: #333;
+  min-height: 100vh;
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+#root {
+  width: 100%;
+  overflow-x: hidden;
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+
+.navSection {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgba(31, 41, 55, 0.85);
+  backdrop-filter: blur(10px);
+  color: #fff;
+  padding: 1rem 2rem;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  transition: background-color 0.3s ease-in-out;
+}
+
+.title h2 {
+  font-size: 1.8rem;
+  color: #60a5fa;
+}
+
+.search {
+  flex: 1;
+  max-width: 500px;
+  margin: 0 1rem;
+}
+
+.search input {
+  width: 100%;
+  padding: 0.6rem 1rem;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+  background-color: #f1f5f9;
+  transition: all 0.3s ease;
+}
+
+.search input:focus {
+  background-color: #fff;
+  border: 1px solid #60a5fa;
+  box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.3);
+}
+
+.user .cart {
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  background-color: #60a5fa;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s;
+  box-shadow: 0 4px 8px rgba(96, 165, 250, 0.3);
+}
+
+.user .cart:hover {
+  background-color: #3b82f6;
+}
+
+.proSection {
+  display: flex;
+  justify-content: center;
+  padding: 3rem 1rem;
+  flex-grow: 1;
+  width: 100%;
+}
+
+.cardmain {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 2rem;
+  width: 100%;
+  max-width: 1200px;
+  justify-items: center;
+}
+
+/* ===== Card Styling ===== */
+.card1 {
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  width: 100%;
+  max-width: 280px;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.card1:hover {
+  transform: translateY(-10px) scale(1.03);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+}
+
+.card1 .image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.card1 .card-body {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.card1 .card-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.card1 .card-text {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+.card1 .card-text span {
+  font-weight: 600;
+  color: #111827;
+}
+
+.card1 button {
+  align-self: flex-start;
+  padding: 0.6rem 1.1rem;
+  background-color: #ef4444;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.card1 button:hover {
+  background-color: #dc2626;
+  transform: scale(1.05);
+}
+.payment-page {
+  max-width: 500px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
+}
+
+.payment-form input,
+.payment-form textarea {
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+
+.payment-form button {
+  width: 100%;
+  padding: 0.75rem;
+  background: #4caf50;
+  color: white;
+  font-size: 1.1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.payment-form button:hover {
+  background: #388e3c;
+}
+
+
+.cart-page {
+  max-width: 900px;
+  margin: 3rem auto;
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  animation: fadeIn 0.5s ease-in;
+}
+
+.cart-page h2 {
+  margin-bottom: 1.5rem;
+  font-size: 2rem;
+  color: #1f2937;
+}
+
+.cart-items {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.cart-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: #f8fafc;
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+.cart-item-image {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.cart-item-info h4 {
+  margin-bottom: 0.3rem;
+}
+
+.cart-total {
+  margin-top: 2rem;
+  font-size: 1.4rem;
+  font-weight: bold;
+  text-align: right;
+  color: #1e3a8a;
+}
+.remove-btn {
+  margin-top: 0.5rem;
+  background-color: #ef4444;
+  color: white;
+  padding: 0.4rem 1rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+.remove-btn:hover {
+  background-color: #dc2626;
+}
+
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  } to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.delete-btn {
+  background-color: #f87171;
+  color: white;
+  padding: 0.4rem 0.8rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 0.5rem;
+  transition: background-color 0.3s ease;
+}
+
+.delete-btn:hover {
+  background-color: #dc2626;
+}
+
+
+@media (max-width: 768px) {
+  .navSection {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .search {
+    width: 100%;
+    margin: 1rem 0;
+  }
+
+  .cardmain {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .cart-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .cart-item-image {
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+  }
+
+  .cart-total {
+    text-align: center;
+  }
+}
