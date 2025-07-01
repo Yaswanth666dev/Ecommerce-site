@@ -1,12 +1,10 @@
 
-
-
 import React, { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 
 import "./App.css";
 import Navbar from "./stores/components/Navbar";
-import LandingPage from "./stores/components/landingpage";
+import LandingPage from "./stores/components/Landingpage";
 import Shirts from "./stores/components/Shirts";
 import CartPage from "./stores/components/CartPage";
 import PaymentPage from "./stores/components/paymentPage";
