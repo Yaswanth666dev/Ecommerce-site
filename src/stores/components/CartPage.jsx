@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 
-const Cart = ({ cart, removeFromCart }) => {
+const Cart = ({ cart, removeFromCart, updateQuantity }) => {
   const navigate = useNavigate();
   const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
@@ -15,12 +15,36 @@ const Cart = ({ cart, removeFromCart }) => {
           <div className="cart-items">
             {cart.map((item) => (
               <div className="cart-item" key={item.id}>
-                <img src={item.image} alt={item.title} className="cart-item-image" />
+                <img
+                  src={item.image}
+                  alt={item.title}
+                  className="cart-item-image"
+                  style={{ width: "100px", height: "100px", objectFit: "contain" }}
+                />
+
                 <div className="cart-item-info">
                   <h4>{item.title}</h4>
                   <p>Price: ₹{item.price}</p>
-                  <p>Quantity: {item.quantity}</p>
-                  <button className="remove-btn" onClick={() => removeFromCart(item.id)}>
+
+                  <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                    <button onClick={() => updateQuantity(item.id, item.quantity - 1)}>-</button>
+                    <span>{item.quantity}</span>
+                    <button onClick={() => updateQuantity(item.id, item.quantity + 1)}>+</button>
+                  </div>
+
+                  <button
+                    className="remove-btn"
+                    onClick={() => removeFromCart(item.id)}
+                    style={{
+                      marginTop: "10px",
+                      backgroundColor: "#ef4444",
+                      color: "#fff",
+                      border: "none",
+                      padding: "6px 12px",
+                      borderRadius: "4px",
+                      cursor: "pointer",
+                    }}
+                  >
                     Remove
                   </button>
                 </div>
@@ -28,7 +52,7 @@ const Cart = ({ cart, removeFromCart }) => {
             ))}
           </div>
 
-          <div className="cart-total">
+          <div className="cart-total" style={{ marginTop: "20px", fontSize: "18px", fontWeight: "bold" }}>
             Total: ₹{total.toFixed(2)}
           </div>
 
@@ -55,4 +79,3 @@ const Cart = ({ cart, removeFromCart }) => {
 };
 
 export default Cart;
-

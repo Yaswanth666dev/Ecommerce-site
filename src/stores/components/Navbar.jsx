@@ -9,7 +9,7 @@ const Navbar = ({ onSearch, cart }) => {
   return (
     <div className="navSection">
       <div className="title">
-        <h2>E-Mart</h2>
+        <h2    onClick={() => navigate("/")}>E-Mart</h2>
       </div>
 
       <div className="search">
