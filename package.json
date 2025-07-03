@@ -1,11 +1,17 @@
+
+
+
 {
   "name": "my-react-app",
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "homepage": "https://yaswanthgutlapalli.github.io/ecommerce-site",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist",
     "lint": "eslint .",
     "preview": "vite preview"
   },
@@ -15,7 +21,6 @@
     "formik": "^2.4.6",
     "react": "^19.1.0",
     "react-bootstrap": "^2.10.10",
-    "react-dom": "^19.1.0",
     "react-responsive-carousel": "^3.2.23",
     "react-router-dom": "^7.6.2",
     "yup": "^1.6.1"
@@ -29,6 +34,7 @@
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.19",
     "globals": "^16.0.0",
-    "vite": "^6.3.5"
+    "vite": "^6.3.5",
+    "gh-pages": "^6.0.0"
   }
 }
