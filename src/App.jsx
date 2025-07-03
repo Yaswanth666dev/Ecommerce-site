@@ -120,7 +120,7 @@ import Navbar from "./stores/components/Navbar";
 import Shirts from "./stores/components/Shirts";
 import CartPage from "./stores/components/CartPage";
 import PaymentPage from "./stores/components/paymentPage";
-import LandingPage from "./stores/components/landingpage";
+import LandingPage from "./stores/components/Landingpage";
 
 const App = () => {
   const [cart, setCart] = useState([]);
