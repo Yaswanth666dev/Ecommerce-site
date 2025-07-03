@@ -118,7 +118,7 @@ import "./App.css";
 import Navbar from "./stores/components/Navbar";
 import Shirts from "./stores/components/Shirts";
 import CartPage from "./stores/components/CartPage";
-import PaymentPage from "./stores/components/PaymentPage";
+import PaymentPage from "./stores/components/paymentPage";
 import LandingPage from "./stores/components/Landingpage";
 
 const App = () => {
