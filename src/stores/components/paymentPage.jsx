@@ -185,7 +185,7 @@
 import React from "react";
 import { useFormik } from "formik";
 import { useNavigate } from "react-router-dom";
-import "../../App.css";
+import "../../App.css"; // ✅ Make sure this includes styles below
 
 const PaymentPage = ({ cart = [], total = 0, setCart }) => {
   const navigate = useNavigate();
@@ -234,41 +234,47 @@ const PaymentPage = ({ cart = [], total = 0, setCart }) => {
       return errors;
     },
     onSubmit: async (values) => {
-      const res = await loadRazorpayScript();
-      if (!res) {
-        alert("Razorpay SDK failed to load.");
-        return;
+      try {
+        const res = await loadRazorpayScript();
+        if (!res) {
+          alert("Razorpay SDK failed to load.");
+          return;
+        }
+
+        const fullAddress = `${values.address}, ${values.city}, ${values.state} - ${values.pincode}`;
+
+        const options = {
+          key: "rzp_test_1DP5mmOlF5G5ag",
+          amount: total * 100,
+          currency: "INR",
+          name: "E-Mart",
+          description: "Payment for your order",
+          handler: function (response) {
+            // ✅ clear cart after successful payment
+            localStorage.removeItem("cart");
+            if (setCart) setCart([]);
+            alert(`✅ Payment successful!\nPayment ID: ${response.razorpay_payment_id}`);
+            navigate("/");
+          },
+          prefill: {
+            name: values.fullName,
+            email: values.email,
+            contact: values.phone,
+          },
+          notes: {
+            address: fullAddress,
+          },
+          theme: {
+            color: "#F37254",
+          },
+        };
+
+        const paymentObject = new window.Razorpay(options);
+        paymentObject.open();
+      } catch (error) {
+        console.error("Payment Error:", error);
+        alert("Something went wrong. Try again.");
       }
-
-      const fullAddress = `${values.address}, ${values.city}, ${values.state} - ${values.pincode}`;
-
-      const options = {
-        key: "rzp_test_1DP5mmOlF5G5ag",
-        amount: total * 100,
-        currency: "INR",
-        name: "E-Mart",
-        description: "Payment for your order",
-        handler: function (response) {
-          localStorage.removeItem("cart");
-          if (setCart) setCart([]);
-          alert(`✅ Payment successful!\nPayment ID: ${response.razorpay_payment_id}`);
-          navigate("/");
-        },
-        prefill: {
-          name: values.fullName,
-          email: values.email,
-          contact: values.phone,
-        },
-        notes: {
-          address: fullAddress,
-        },
-        theme: {
-          color: "#F37254",
-        },
-      };
-
-      const paymentObject = new window.Razorpay(options);
-      paymentObject.open();
     },
   });
 
@@ -281,57 +287,43 @@ const PaymentPage = ({ cart = [], total = 0, setCart }) => {
           Full Name <span className="required">*</span>
         </label>
         <input type="text" name="fullName" {...formik.getFieldProps("fullName")} />
-        {formik.touched.fullName && formik.errors.fullName && (
-          <div className="error">{formik.errors.fullName}</div>
-        )}
+        {formik.touched.fullName && formik.errors.fullName && <div className="error">{formik.errors.fullName}</div>}
 
         <label>
           Email <span className="required">*</span>
         </label>
         <input type="email" name="email" {...formik.getFieldProps("email")} />
-        {formik.touched.email && formik.errors.email && (
-          <div className="error">{formik.errors.email}</div>
-        )}
+        {formik.touched.email && formik.errors.email && <div className="error">{formik.errors.email}</div>}
 
         <label>
           Phone Number <span className="required">*</span>
         </label>
         <input type="tel" name="phone" {...formik.getFieldProps("phone")} />
-        {formik.touched.phone && formik.errors.phone && (
-          <div className="error">{formik.errors.phone}</div>
-        )}
+        {formik.touched.phone && formik.errors.phone && <div className="error">{formik.errors.phone}</div>}
 
         <label>
           Address <span className="required">*</span>
         </label>
         <textarea name="address" rows="2" {...formik.getFieldProps("address")} />
-        {formik.touched.address && formik.errors.address && (
-          <div className="error">{formik.errors.address}</div>
-        )}
+        {formik.touched.address && formik.errors.address && <div className="error">{formik.errors.address}</div>}
 
         <label>
           City <span className="required">*</span>
         </label>
         <input type="text" name="city" {...formik.getFieldProps("city")} />
-        {formik.touched.city && formik.errors.city && (
-          <div className="error">{formik.errors.city}</div>
-        )}
+        {formik.touched.city && formik.errors.city && <div className="error">{formik.errors.city}</div>}
 
         <label>
           State <span className="required">*</span>
         </label>
         <input type="text" name="state" {...formik.getFieldProps("state")} />
-        {formik.touched.state && formik.errors.state && (
-          <div className="error">{formik.errors.state}</div>
-        )}
+        {formik.touched.state && formik.errors.state && <div className="error">{formik.errors.state}</div>}
 
         <label>
           Pincode <span className="required">*</span>
         </label>
         <input type="text" name="pincode" {...formik.getFieldProps("pincode")} />
-        {formik.touched.pincode && formik.errors.pincode && (
-          <div className="error">{formik.errors.pincode}</div>
-        )}
+        {formik.touched.pincode && formik.errors.pincode && <div className="error">{formik.errors.pincode}</div>}
 
         <div className="payment-summary">Total: ₹{total.toFixed(2)}</div>
 

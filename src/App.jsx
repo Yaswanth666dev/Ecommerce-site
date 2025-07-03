@@ -3,13 +3,13 @@
 
 // import "./App.css";
 // import Navbar from "./stores/components/Navbar";
-
+// import LandingPage from "./stores/components/Landingpage";
 // import Shirts from "./stores/components/Shirts";
 // import CartPage from "./stores/components/CartPage";
 // import PaymentPage from "./stores/components/paymentPage";
-// import LandingPage from "./stores/components/Landingpage";
 
 // const App = () => {
+//   const [searchTerm, setSearchTerm] = useState("");
 //   const [cart, setCart] = useState([]);
 //   const [allProducts, setAllProducts] = useState([]);
 
@@ -23,7 +23,7 @@
 
 //         const normalizedDummyProducts = data2.products.map((product) => ({
 //           ...product,
-//           image: product.images?.[0] || "https://via.placeholder.com/100",
+//           image: product.images?.[0] || "https://via.placeholder.com/100",  
 //         }));
 
 //         const combined = [...data1, ...normalizedDummyProducts];
@@ -72,13 +72,20 @@
 
 //   return (
 //     <div className="app-container">
-//       {/* ✅ Navbar contains search input and cart count */}
-//       <Navbar cart={cart} />
+//       <Navbar onSearch={setSearchTerm} cart={cart} />
 
 //       <main className="main-content">
 //         <Routes>
-//           <Route path="/" element={<LandingPage addToCart={addToCart} />} />
-//           <Route path="/shirts" element={<Shirts addToCart={addToCart} />} />
+//           <Route
+//             path="/"
+//             element={
+//               <LandingPage searchTerm={searchTerm} addToCart={addToCart} />
+//             }
+//           />
+//           <Route
+//             path="/products"
+//             element={<Shirts searchTerm={searchTerm} addToCart={addToCart} />}
+//           />
 //           <Route
 //             path="/cart"
 //             element={
@@ -103,7 +110,6 @@
 
 // export default App;
 
-// src/App.jsx
 
 import React, { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
@@ -116,20 +122,20 @@ import PaymentPage from "./stores/components/PaymentPage";
 import LandingPage from "./stores/components/Landingpage";
 
 const App = () => {
-  // ✅ Cart with localStorage support
+  // ✅ Load cart from localStorage on first render
   const [cart, setCart] = useState(() => {
-    const stored = localStorage.getItem("cart");
-    return stored ? JSON.parse(stored) : [];
+    const savedCart = localStorage.getItem("cart");
+    return savedCart ? JSON.parse(savedCart) : [];
   });
 
   const [allProducts, setAllProducts] = useState([]);
 
-  // ✅ Sync cart with localStorage
+  // ✅ Sync cart to localStorage whenever it changes
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cart));
   }, [cart]);
 
-  // ✅ Fetch products
+  // ✅ Fetch products from both APIs
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -153,7 +159,7 @@ const App = () => {
     fetchProducts();
   }, []);
 
-  // ✅ Add to Cart
+  // ✅ Cart handlers
   const addToCart = (item) => {
     setCart((prevCart) => {
       const existing = prevCart.find((cartItem) => cartItem.id === item.id);
@@ -169,12 +175,10 @@ const App = () => {
     });
   };
 
-  // ✅ Remove from Cart
   const removeFromCart = (id) => {
     setCart((prevCart) => prevCart.filter((item) => item.id !== id));
   };
 
-  // ✅ Update Cart Quantity
   const updateQuantity = (id, newQty) => {
     setCart((prevCart) => {
       if (newQty <= 0) {
@@ -186,20 +190,21 @@ const App = () => {
     });
   };
 
-  // ✅ Calculate total
   const calculateTotal = () => {
     return cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
   };
 
   return (
     <div className="app-container">
-      {/* Navbar shows cart count and search */}
+      {/* ✅ Navbar contains search input and cart count */}
       <Navbar cart={cart} />
 
       <main className="main-content">
         <Routes>
           <Route path="/" element={<LandingPage addToCart={addToCart} />} />
+
           <Route path="/shirts" element={<Shirts addToCart={addToCart} />} />
+
           <Route
             path="/cart"
             element={
@@ -212,13 +217,14 @@ const App = () => {
               />
             }
           />
+
           <Route
             path="/payment"
             element={
               <PaymentPage
                 cart={cart}
-                setCart={setCart}  // ✅ important for clearing cart
                 total={calculateTotal()}
+                setCart={setCart} // ✅ Pass to clear cart after payment
               />
             }
           />
