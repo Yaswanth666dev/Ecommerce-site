@@ -1,3 +1,6 @@
+
+
+
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -54,7 +57,7 @@ const LandingPage = () => {
             Explore top deals and unbeatable fashion only at{" "}
             <span className="highlight">E-Mart</span>.
           </p>
-          <button onClick={() => navigate("/products")}>Shop Now</button>
+          <button onClick={() => navigate("/shirts")}>Shop Now</button>
         </div>
       </div>
 
@@ -99,8 +102,9 @@ const LandingPage = () => {
               />
               <p
                 onClick={() =>
-                  navigate(`/products?category=${cat.name.toLowerCase()}`)
+                  navigate(`/shirts?category=${cat.name.toLowerCase()}`)
                 }
+                style={{ cursor: "pointer", fontWeight: "bold" }}
               >
                 {cat.name}
               </p>
@@ -118,7 +122,7 @@ const LandingPage = () => {
               <p>{item.desc}</p>
               <button
                 className="shop-now-btn"
-                onClick={() => navigate("/products")}
+                onClick={() => navigate("/shirts")}
               >
                 Shop Now →
               </button>

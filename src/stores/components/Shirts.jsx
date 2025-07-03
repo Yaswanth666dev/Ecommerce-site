@@ -1,15 +1,23 @@
+
+
+
+
+
+
 import React, { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import { useLocation } from "react-router-dom";
 
-const Shirts = ({ searchTerm = "", addToCart }) => {
+const Shirts = ({ addToCart }) => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const location = useLocation();
 
+  // ✅ Get query params from the URL
   const queryParams = new URLSearchParams(location.search);
-  const category = queryParams.get("category")?.toLowerCase();
+  const category = queryParams.get("category")?.toLowerCase() || "";
+  const searchTerm = queryParams.get("search")?.toLowerCase() || "";
 
   useEffect(() => {
     const fetchAllProducts = async () => {
@@ -48,12 +56,11 @@ const Shirts = ({ searchTerm = "", addToCart }) => {
     fetchAllProducts();
   }, []);
 
+  // ✅ Filter products based on search + category
   const filteredItems = products.filter((item) => {
-    const matchesSearch = item.title
-      .toLowerCase()
-      .includes(searchTerm.toLowerCase());
+    const matchesSearch = item.title.toLowerCase().includes(searchTerm);
     const matchesCategory = category
-      ? item.category && item.category.toLowerCase().includes(category)
+      ? item.category && item.category.includes(category)
       : true;
     return matchesSearch && matchesCategory;
   });
@@ -68,30 +75,36 @@ const Shirts = ({ searchTerm = "", addToCart }) => {
         </div>
       ) : (
         <div className="cardmain">
-          {filteredItems.map((item) => (
-            <Card className="card1" key={item.id}>
-              <Card.Img
-                variant="top"
-                src={item.image}
-                className="image"
-                alt={item.title}
-                style={{ height: "250px", objectFit: "contain" }}
-              />
-              <Card.Body>
-                <Card.Title>{item.title.slice(0, 15)}...</Card.Title>
-                <Card.Text>
-                  <span>Price:</span> ${item.price}
-                </Card.Text>
-                <Button
-                  className="bg-danger"
-                  variant="primary"
-                  onClick={() => addToCart(item)}
-                >
-                  Add to Cart
-                </Button>
-              </Card.Body>
-            </Card>
-          ))}
+          {filteredItems.length > 0 ? (
+            filteredItems.map((item) => (
+              <Card className="card1" key={item.id}>
+                <Card.Img
+                  variant="top"
+                  src={item.image}
+                  className="image"
+                  alt={item.title}
+                  style={{ height: "250px", objectFit: "contain" }}
+                />
+                <Card.Body>
+                  <Card.Title>{item.title.slice(0, 15)}...</Card.Title>
+                  <Card.Text>
+                    <span>Price:</span> ${item.price}
+                  </Card.Text>
+                  <Button
+                    className="bg-danger"
+                    variant="primary"
+                    onClick={() => addToCart(item)}
+                  >
+                    Add to Cart
+                  </Button>
+                </Card.Body>
+              </Card>
+            ))
+          ) : (
+            <h4 className="text-center mt-4">
+              No products found for "{searchTerm || category}"
+            </h4>
+          )}
         </div>
       )}
     </div>

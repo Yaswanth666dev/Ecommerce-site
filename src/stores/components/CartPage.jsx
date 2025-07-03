@@ -79,3 +79,5 @@ const Cart = ({ cart, removeFromCart, updateQuantity }) => {
 };
 
 export default Cart;
+
+
