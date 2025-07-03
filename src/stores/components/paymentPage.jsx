@@ -185,7 +185,7 @@
 import React from "react";
 import { useFormik } from "formik";
 import { useNavigate } from "react-router-dom";
-import "../../App.css"; // ✅ Make sure this includes styles below
+import "../../App.css"; 
 
 const PaymentPage = ({ cart = [], total = 0, setCart }) => {
   const navigate = useNavigate();
