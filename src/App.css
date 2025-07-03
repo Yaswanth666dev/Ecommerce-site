@@ -69,6 +69,23 @@ body {
   max-width: 500px;
   margin: 0 1rem;
 }
+.required {
+  color: red;
+  font-weight: bold;
+}
+
+.error {
+  color: red;
+  font-size: 0.85rem;
+  margin-bottom: 10px;
+}
+
+label {
+  margin-top: 10px;
+  display: block;
+  font-weight: 500;
+}
+
 
 .search input {
   width: 100%;
