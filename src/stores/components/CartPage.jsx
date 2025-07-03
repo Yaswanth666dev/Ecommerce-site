@@ -19,17 +19,35 @@ const Cart = ({ cart, removeFromCart, updateQuantity }) => {
                   src={item.image}
                   alt={item.title}
                   className="cart-item-image"
-                  style={{ width: "100px", height: "100px", objectFit: "contain" }}
+                  style={{
+                    width: "100px",
+                    height: "100px",
+                    objectFit: "contain",
+                  }}
                 />
 
                 <div className="cart-item-info">
                   <h4>{item.title}</h4>
                   <p>Price: ₹{item.price}</p>
 
-                  <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-                    <button onClick={() => updateQuantity(item.id, item.quantity - 1)}>-</button>
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "10px",
+                    }}
+                  >
+                    <button
+                      onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                    >
+                      -
+                    </button>
                     <span>{item.quantity}</span>
-                    <button onClick={() => updateQuantity(item.id, item.quantity + 1)}>+</button>
+                    <button
+                      onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                    >
+                      +
+                    </button>
                   </div>
 
                   <button
@@ -52,7 +70,10 @@ const Cart = ({ cart, removeFromCart, updateQuantity }) => {
             ))}
           </div>
 
-          <div className="cart-total" style={{ marginTop: "20px", fontSize: "18px", fontWeight: "bold" }}>
+          <div
+            className="cart-total"
+            style={{ marginTop: "20px", fontSize: "18px", fontWeight: "bold" }}
+          >
             Total: ₹{total.toFixed(2)}
           </div>
 
@@ -79,5 +100,3 @@ const Cart = ({ cart, removeFromCart, updateQuantity }) => {
 };
 
 export default Cart;
-
-

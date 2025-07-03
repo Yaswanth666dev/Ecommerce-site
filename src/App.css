@@ -324,6 +324,61 @@ label {
   background-color: #dc2626;
 }
 
+
+/* Ensure smooth fade-in for the payment form */
+.payment-page {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Add transition when focusing on form fields */
+.payment-form input,
+.payment-form textarea {
+  transition: border 0.3s ease, box-shadow 0.3s ease;
+}
+
+.payment-form input:focus,
+.payment-form textarea:focus {
+  box-shadow: 0 0 5px rgba(96, 165, 250, 0.5);
+}
+
+/* Confirmation success styles (if used in same component after payment) */
+.payment-confirmation {
+  text-align: center;
+  padding: 2rem;
+  background-color: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: 8px;
+  margin-top: 2rem;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.payment-confirmation h2 {
+  color: #10b981;
+  font-size: 24px;
+  margin-bottom: 1rem;
+}
+
+.payment-confirmation p {
+  font-size: 16px;
+  color: #374151;
+}
+
+.payment-confirmation button {
+  margin-top: 1rem;
+  padding: 0.75rem 1.5rem;
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.payment-confirmation button:hover {
+  background-color: #2563eb;
+}
+
 @media (max-width: 768px) {
   .navSection {
     flex-direction: column;
